@@ -7,6 +7,7 @@ on:
       - data/labels.csv.b64
       - scripts/gerar_etiquetas_publicas.cjs
       - scripts/gerar_etiquetas_publicas_b64.cjs
+      - scripts/gerar_etiquetas_publicas_hash.cjs
       - .github/workflows/publicar-etiquetas.yml
   workflow_dispatch:
 
@@ -21,15 +22,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node scripts/gerar_etiquetas_publicas_b64.cjs
+      - run: node scripts/gerar_etiquetas_publicas_hash.cjs
       - name: Commit etiquetas
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add etiquetas_correios
+          git add 9983
           if git diff --cached --quiet; then
             echo "Sem alteracoes para publicar."
           else
-            git commit -m "Publica etiquetas geradas [skip ci]"
+            git commit -m "Publica etiquetas com URLs hash [skip ci]"
             git push
           fi
