@@ -4,7 +4,9 @@ on:
   push:
     paths:
       - data/labels.csv
+      - data/labels.csv.b64
       - scripts/gerar_etiquetas_publicas.cjs
+      - scripts/gerar_etiquetas_publicas_b64.cjs
       - .github/workflows/publicar-etiquetas.yml
   workflow_dispatch:
 
@@ -19,7 +21,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: node scripts/gerar_etiquetas_publicas.cjs
+      - run: node scripts/gerar_etiquetas_publicas_b64.cjs
       - name: Commit etiquetas
         run: |
           git config user.name "github-actions[bot]"
